@@ -1,0 +1,20 @@
+{
+  "name": "playwright-assesment",
+  "version": "1.0.0",
+  "description": "Playwright + TypeScript test suite for saucedemo.com",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "report": "playwright show-report"
+  },
+  "keywords": [],
+  "author": "Andrii Grechyn",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.61.1",
+    "@types/node": "^26.1.1",
+    "typescript": "^7.0.2"
+  }
+}
