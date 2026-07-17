@@ -62,3 +62,27 @@ tests/
 - Credentials are hardcoded here since saucedemo is a public demo app with
   no real security concerns. For a real app, move these to environment
   variables or a secrets manager instead.
+
+## To Do / Future Improvements
+
+If I had more time, I'd prioritize:
+
+### Test Coverage
+- [ ] API-level setup — log in via request context / storageState instead of UI, to speed up tests that don't need to test login itself
+- [ ] `error_user` checkout flow — this user is known to break mid-checkout; worth a dedicated negative test
+- [ ] `performance_glitch_user` — assert against a reasonable load-time threshold rather than just logging in successfully
+- [ ] Cross-item checkout math — verify tax/total correctness across different item combinations, not just the happy-path set
+
+### Infrastructure
+- [ ] CI pipeline (GitHub Actions) running the suite on push/PR, across all 3 browser projects
+- [ ] Parallel sharding in CI for faster feedback
+- [ ] Environment-based config (dev/staging/prod base URLs via `.env` + `dotenv`)
+
+### Code Quality
+- [ ] Tags/annotations (`@smoke`, `@regression`) to allow running subsets via `--grep`
+- [ ] Custom fixtures to auto-inject page objects
+- [ ] ESLint + Prettier with a Playwright-specific ruleset
+
+### Reporting
+- [ ] Slack/email notification on CI failure
+- [ ] Flaky test detection/retry reporting dashboard  
