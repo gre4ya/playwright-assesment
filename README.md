@@ -74,7 +74,7 @@ If I had more time, I'd prioritize:
 - [ ] Cross-item checkout math — verify tax/total correctness across different item combinations, not just the happy-path set
 
 ### Infrastructure
-- [ ] CI pipeline (GitHub Actions) running the suite on push/PR, across all 3 browser projects
+- [✅] CI pipeline (GitHub Actions) running the suite on push/PR, across all 3 browser projects
 - [ ] Parallel sharding in CI for faster feedback
 - [ ] Environment-based config (dev/staging/prod base URLs via `.env` + `dotenv`)
 
