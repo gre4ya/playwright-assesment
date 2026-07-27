@@ -3,6 +3,8 @@ import { LoginPage } from '../pages/LoginPage';
 import { InventoryPage } from '../pages/InventoryPage';
 import { usersExpectingSuccess, usersExpectingError } from '../test-data/users';
 
+test.use({ storageState: { cookies: [], origins: [] } });
+
 test.describe('Login', () => {
   for (const user of usersExpectingSuccess) {
     test(`${user.username} can log in successfully — ${user.description}`, async ({ page }) => {

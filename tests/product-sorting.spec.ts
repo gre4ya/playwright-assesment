@@ -1,7 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pages/LoginPage';
 import { InventoryPage } from '../pages/InventoryPage';
-import { users } from '../test-data/users';
 
 // Sorting is a common source of silent data bugs (e.g. string vs numeric
 // sort on price). Verifying actual order rather than just "no crash" catches
@@ -9,9 +7,7 @@ import { users } from '../test-data/users';
 
 test.describe('Product sorting', () => {
   test.beforeEach(async ({ page }) => {
-    const loginPage = new LoginPage(page);
-    await loginPage.goto();
-    await loginPage.login(users.standard.username, users.standard.password);
+    await page.goto('/inventory.html');
   });
 
   test('sorts names A to Z', async ({ page }) => {

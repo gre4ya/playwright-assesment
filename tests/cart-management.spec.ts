@@ -1,8 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pages/LoginPage';
 import { InventoryPage } from '../pages/InventoryPage';
 import { CartPage } from '../pages/CartPage';
-import { users } from '../test-data/users';
 
 // Cart correctness is critical: an inflated, missing, or stale cart directly
 // causes wrong orders and lost revenue. This covers add/remove and makes sure
@@ -10,10 +8,7 @@ import { users } from '../test-data/users';
 
 test.describe('Cart management', () => {
   test.beforeEach(async ({ page }) => {
-    const loginPage = new LoginPage(page);
-    await loginPage.goto();
-    await loginPage.login(users.standard.username, users.standard.password);
-    await loginPage.expectLoginSuccess();
+    await page.goto('/inventory.html');
   });
 
   test('adding an item updates the cart badge and button label', async ({ page }) => {

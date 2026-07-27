@@ -57,7 +57,7 @@ tests/
 
 - `problem_user` is known to have broken product images/UI on saucedemo;
   if you extend visual assertions, expect some flakiness with that user.
-- `performance_glitch_user` has an intentional delay on login — tests
+- `performance_glitch_user` has an intentional delay on login — tes4ts
   involving it may need a longer timeout.
 - Credentials are hardcoded here since saucedemo is a public demo app with
   no real security concerns. For a real app, move these to environment
@@ -68,7 +68,7 @@ tests/
 If I had more time, I'd prioritize:
 
 ### Test Coverage
-- [ ] API-level setup — log in via request context / storageState instead of UI, to speed up tests that don't need to test login itself
+- [✅] API-level setup — log in via request context / storageState instead of UI, to speed up tests that don't need to test login itself
 - [ ] `error_user` checkout flow — this user is known to break mid-checkout; worth a dedicated negative test
 - [ ] `performance_glitch_user` — assert against a reasonable load-time threshold rather than just logging in successfully
 - [ ] Cross-item checkout math — verify tax/total correctness across different item combinations, not just the happy-path set
