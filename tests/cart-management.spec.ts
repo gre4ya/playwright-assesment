@@ -11,7 +11,7 @@ test.describe('Cart management', () => {
     await page.goto('/inventory.html');
   });
 
-  test('adding an item updates the cart badge and button label', async ({ page }) => {
+  test('adding an item updates the cart badge and button label', { tag: '@regression' }, async ({ page }) => {
     const inventoryPage = new InventoryPage(page);
 
     expect(await inventoryPage.getCartItemCount()).toBe(0);

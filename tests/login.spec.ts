@@ -7,7 +7,7 @@ test.use({ storageState: { cookies: [], origins: [] } });
 
 test.describe('Login', () => {
   for (const user of usersExpectingSuccess) {
-    test(`${user.username} can log in successfully — ${user.description}`, async ({ page }) => {
+    test(`${user.username} can log in successfully — ${user.description}`, { tag: '@smoke' }, async ({ page }) => {
       const loginPage = new LoginPage(page);
       const inventoryPage = new InventoryPage(page);
 
@@ -19,7 +19,7 @@ test.describe('Login', () => {
   }
 
   for (const user of usersExpectingError) {
-    test(`${user.username} is blocked with correct error message`, async ({ page }) => {
+    test(`${user.username} is blocked with correct error message`, { tag: '@regression' }, async ({ page }) => {
       const loginPage = new LoginPage(page);
 
       await loginPage.goto();
@@ -30,7 +30,7 @@ test.describe('Login', () => {
     });
   }
 
-  test('shows an error when username is missing', async ({ page }) => {
+  test('shows an error when username is missing', { tag: '@regression' }, async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
     await loginPage.passwordInput.fill('secret_sauce');
@@ -38,7 +38,7 @@ test.describe('Login', () => {
     await loginPage.expectLoginError('Epic sadface: Username is required');
   });
 
-  test('shows an error when password is missing', async ({ page }) => {
+  test('shows an error when password is missing', { tag: '@regression' }, async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
     await loginPage.usernameInput.fill('standard_user');
@@ -46,7 +46,7 @@ test.describe('Login', () => {
     await loginPage.expectLoginError('Epic sadface: Password is required');
   });
 
-  test('shows an error for invalid credentials', async ({ page }) => {
+  test('shows an error for invalid credentials', { tag: '@regression' }, async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
     await loginPage.login('standard_user', 'wrong_password');

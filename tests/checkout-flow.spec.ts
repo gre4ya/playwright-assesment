@@ -15,7 +15,7 @@ test.describe('End-to-end checkout flow', () => {
     await page.goto('/inventory.html');
   });
 
-  test('standard_user can purchase multiple items successfully', async ({ page }) => {
+  test('standard_user can purchase multiple items successfully', { tag: '@smoke' }, async ({ page }) => {
     const inventoryPage = new InventoryPage(page);
     const cartPage = new CartPage(page);
     const stepOne = new CheckoutStepOnePage(page);
@@ -60,7 +60,7 @@ test.describe('End-to-end checkout flow', () => {
     });
   });
 
-  test('cannot proceed to checkout step two without required fields', async ({ page }) => {
+  test('cannot proceed to checkout step two without required fields', { tag: '@regression' }, async ({ page }) => {
     const inventoryPage = new InventoryPage(page);
     const cartPage = new CartPage(page);
     const stepOne = new CheckoutStepOnePage(page);

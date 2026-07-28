@@ -5,7 +5,7 @@ import { InventoryPage } from '../pages/InventoryPage';
 // sort on price). Verifying actual order rather than just "no crash" catches
 // those regressions.
 
-test.describe('Product sorting', () => {
+test.describe('Product sorting', { tag: '@regression' }, () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/inventory.html');
   });

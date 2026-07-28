@@ -79,7 +79,7 @@ If I had more time, I'd prioritize:
 - [ ] Environment-based config (dev/staging/prod base URLs via `.env` + `dotenv`)
 
 ### Code Quality
-- [ ] Tags/annotations (`@smoke`, `@regression`) to allow running subsets via `--grep`
+- [✅] Tags/annotations (`@smoke`, `@regression`) to allow running subsets via `--grep`
 - [ ] Custom fixtures to auto-inject page objects
 - [ ] ESLint + Prettier with a Playwright-specific ruleset
 
