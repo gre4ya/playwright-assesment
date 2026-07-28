@@ -1,9 +1,4 @@
-import { test, expect } from '@playwright/test';
-import { InventoryPage } from '../pages/InventoryPage';
-import { CartPage } from '../pages/CartPage';
-import { CheckoutStepOnePage } from '../pages/CheckoutStepOnePage';
-import { CheckoutStepTwoPage } from '../pages/CheckoutStepTwoPage';
-import { CheckoutCompletePage } from '../pages/CheckoutCompletePage';
+import { test, expect } from './fixtures';
 import { checkoutInfo } from '../test-data/users';
 
 // This is the app's core revenue path: browse -> cart -> checkout -> order
@@ -15,13 +10,7 @@ test.describe('End-to-end checkout flow', () => {
     await page.goto('/inventory.html');
   });
 
-  test('standard_user can purchase multiple items successfully', { tag: '@smoke' }, async ({ page }) => {
-    const inventoryPage = new InventoryPage(page);
-    const cartPage = new CartPage(page);
-    const stepOne = new CheckoutStepOnePage(page);
-    const stepTwo = new CheckoutStepTwoPage(page);
-    const complete = new CheckoutCompletePage(page);
-
+  test('standard_user can purchase multiple items successfully', { tag: '@smoke' }, async ({ page, inventoryPage, cartPage, checkoutStepOnePage, checkoutStepTwoPage, checkoutCompletePage }) => {
     const itemsToBuy = ['Sauce Labs Backpack', 'Sauce Labs Bike Light'];
 
     await test.step('Add items to cart', async () => {
@@ -41,35 +30,31 @@ test.describe('End-to-end checkout flow', () => {
     await test.step('Proceed through checkout', async () => {
       await cartPage.checkout();
       await expect(page).toHaveURL(/checkout-step-one\.html/);
-      await stepOne.fillInfo(checkoutInfo.firstName, checkoutInfo.lastName, checkoutInfo.postalCode);
-      await stepOne.continueToOverview();
+      await checkoutStepOnePage.fillInfo(checkoutInfo.firstName, checkoutInfo.lastName, checkoutInfo.postalCode);
+      await checkoutStepOnePage.continueToOverview();
       await expect(page).toHaveURL(/checkout-step-two\.html/);
     });
 
     await test.step('Verify order summary math', async () => {
-      const itemTotal = await stepTwo.getItemTotal();
-      const tax = await stepTwo.getTax();
-      const total = await stepTwo.getTotal();
+      const itemTotal = await checkoutStepTwoPage.getItemTotal();
+      const tax = await checkoutStepTwoPage.getTax();
+      const total = await checkoutStepTwoPage.getTotal();
       expect(total).toBeCloseTo(itemTotal + tax, 2);
     });
 
     await test.step('Finish order and verify confirmation', async () => {
-      await stepTwo.finish();
+      await checkoutStepTwoPage.finish();
       await expect(page).toHaveURL(/checkout-complete\.html/);
-      await complete.expectOrderComplete();
+      await checkoutCompletePage.expectOrderComplete();
     });
   });
 
-  test('cannot proceed to checkout step two without required fields', { tag: '@regression' }, async ({ page }) => {
-    const inventoryPage = new InventoryPage(page);
-    const cartPage = new CartPage(page);
-    const stepOne = new CheckoutStepOnePage(page);
-
+  test('cannot proceed to checkout step two without required fields', { tag: '@regression' }, async ({ inventoryPage, cartPage, checkoutStepOnePage }) => {
     await inventoryPage.addItemToCart('Sauce Labs Backpack');
     await inventoryPage.goToCart();
     await cartPage.checkout();
 
-    await stepOne.continueToOverview();
-    await stepOne.expectValidationError('Error: First Name is required');
+    await checkoutStepOnePage.continueToOverview();
+    await checkoutStepOnePage.expectValidationError('Error: First Name is required');
   });
 });

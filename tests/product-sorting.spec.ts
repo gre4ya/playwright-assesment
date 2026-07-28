@@ -1,5 +1,4 @@
-import { test, expect } from '@playwright/test';
-import { InventoryPage } from '../pages/InventoryPage';
+import { test, expect } from './fixtures';
 
 // Sorting is a common source of silent data bugs (e.g. string vs numeric
 // sort on price). Verifying actual order rather than just "no crash" catches
@@ -10,8 +9,7 @@ test.describe('Product sorting', { tag: '@regression' }, () => {
     await page.goto('/inventory.html');
   });
 
-  test('sorts names A to Z', async ({ page }) => {
-    const inventoryPage = new InventoryPage(page);
+  test('sorts names A to Z', async ({ inventoryPage }) => {
     await inventoryPage.sortBy('az');
 
     const names = await inventoryPage.getItemNames();
@@ -19,8 +17,7 @@ test.describe('Product sorting', { tag: '@regression' }, () => {
     expect(names).toEqual(sorted);
   });
 
-  test('sorts names Z to A', async ({ page }) => {
-    const inventoryPage = new InventoryPage(page);
+  test('sorts names Z to A', async ({ inventoryPage }) => {
     await inventoryPage.sortBy('za');
 
     const names = await inventoryPage.getItemNames();
@@ -28,8 +25,7 @@ test.describe('Product sorting', { tag: '@regression' }, () => {
     expect(names).toEqual(sorted);
   });
 
-  test('sorts price low to high', async ({ page }) => {
-    const inventoryPage = new InventoryPage(page);
+  test('sorts price low to high', async ({ inventoryPage }) => {
     await inventoryPage.sortBy('lohi');
 
     const prices = await inventoryPage.getItemPrices();
@@ -37,8 +33,7 @@ test.describe('Product sorting', { tag: '@regression' }, () => {
     expect(prices).toEqual(sorted);
   });
 
-  test('sorts price high to low', async ({ page }) => {
-    const inventoryPage = new InventoryPage(page);
+  test('sorts price high to low', async ({ inventoryPage }) => {
     await inventoryPage.sortBy('hilo');
 
     const prices = await inventoryPage.getItemPrices();
